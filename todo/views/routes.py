@@ -49,7 +49,7 @@ def get_todos():
 @api.route('/todos/<int:todo_id>', methods=['GET'])
 def get_todo(todo_id):
     """Return the details of a todo item"""
-    todo = Todo.query.get(todo_id) 
+    todo = db.session.get(Todo, todo_id)
     if todo is None: 
         return jsonify({'error': 'Todo not found'}), 404 
     return jsonify(todo.to_dict())
@@ -83,7 +83,7 @@ def update_todo(todo_id):
     if not set(request.json.keys()).issubset(set(('title', 'description', 'completed', 'deadline_at'))):
         return jsonify({'error': 'extra fields'}), 400
 
-    todo = Todo.query.get(todo_id) 
+    todo = db.session.get(Todo, todo_id)
     if todo is None: 
         return jsonify({'error': 'Todo not found'}), 404 
     
@@ -98,7 +98,7 @@ def update_todo(todo_id):
 @api.route('/todos/<int:todo_id>', methods=['DELETE'])
 def delete_todo(todo_id):
     """Delete a todo item and return the deleted item"""
-    todo = Todo.query.get(todo_id) 
+    todo = db.session.get(Todo, todo_id)
     if todo is None: 
         return jsonify({}), 200 
 

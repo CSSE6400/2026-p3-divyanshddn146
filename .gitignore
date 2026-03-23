@@ -219,3 +219,6 @@ cython_debug/
 # Ignore Apple junk files.
 **/.DS_Store
 **/._.DS_Store
+
+# Docker / Postgres Data
+data/
